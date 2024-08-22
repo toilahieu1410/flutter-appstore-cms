@@ -7,6 +7,7 @@ import 'package:app_web_cms/controllers/subcategory_controller.dart';
 import 'package:app_web_cms/models/category.dart';
 import 'package:app_web_cms/models/subCategory.dart';
 import 'package:app_web_cms/provider/vendor_provider.dart';
+import 'package:app_web_cms/services/manage_http_response.dart';
 import 'package:app_web_cms/views/side_bar_screens/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -282,21 +283,26 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
               padding: const EdgeInsets.all(15.0),
               child: InkWell(
                 onTap: () async {
-                     final fullName = ref.read(vendorProvider)!.fullName;
-                  final vendorId = ref.read(vendorProvider)!.id;
+                  final vendor = ref.read(vendorProvider); 
                   final nonNullImages = images.whereType<Uint8List>().toList();
                    if(_formKey.currentState!.validate()) {
                     setState(() {
                       isLoading = true;
                     });
-                    final vendor = ref.read(vendorProvider); 
+                    
+
+                    if (vendor == null) {
+                      showSnackBar(context, 'Vendor not found');
+                      return;
+                    }
+                    
                     await _productController.uploadProduct(
                       productName: productName, 
                       productPrice: productPrice, 
                       quantity: quantity, 
                       description: description, 
-                      vendorId: vendor!.id, 
-                      fullName: vendor.fullName, 
+                     vendorId: vendor.id,
+        fullName: vendor.fullName,
                       category: selectedCategory!.name, 
                       subCategory: selectedSubcategory!.subCategoryName, 
                       pickedImages: nonNullImages, 

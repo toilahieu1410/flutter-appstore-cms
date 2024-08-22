@@ -62,7 +62,7 @@ class SubcategoryController {
               .map((subcategory) => SubcategoryModel.fromJson(subcategory))
               .toList();
         } else {
-          print('sibcategories not found');
+          print('subcategories not found');
           return [];
         }
       } else if (response.statusCode == 404) {

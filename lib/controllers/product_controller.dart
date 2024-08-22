@@ -66,7 +66,7 @@ class ProductController{
             showSnackBar(context, 'Product Uploaded');
           });
       } else {
-        showSnackBar(context, 'Select Category');
+        showSnackBar(context, 'Select Product');
       }
 
     } else {

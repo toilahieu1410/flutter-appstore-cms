@@ -79,6 +79,7 @@ class VendorAuthController {
 
             // Mã hoá dữ liệu người dùng nhận đc từ backend dưới dạng JSON
             final vendorJson = jsonEncode(jsonDecode(response.body)['vendor']);
+          // Thêm dòng print để kiểm tra
 
             // Cập nhật trạng thái ứng dụng với dữ liệu người dùng sử dụng Riverpod
             providerContainer
